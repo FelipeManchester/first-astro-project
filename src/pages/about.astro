@@ -1,5 +1,28 @@
 ---
+const pageTitle = 'Sobre';
 
+const identity = {
+  firstName: 'Felipe',
+  country: 'Brasil',
+  occupation: 'Front End Developer',
+  hobbies: ['Jogar', 'Assitir filmes', 'Viajar'],
+};
+
+const skills = [
+  'HTML',
+  'CSS',
+  'JavaScript',
+  'React',
+  'PHP',
+  'WordPress',
+  'Figma',
+  'NextJS',
+  'Tailwind CSS',
+];
+
+const happy = true;
+const finished = false;
+const goal = 3;
 ---
 
 <!doctype html>
@@ -8,7 +31,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
     <nav>
@@ -19,6 +42,36 @@
     <h1>Front Intro - Sobre</h1>
     <h2>Compartilhando dicas sobre front-end</h2>
 
+    <p>Alguns fatos sobre mim:</p>
+
+    <ul>
+      <li>Meu nome é {identity.firstName}.</li>
+      <li>
+        Eu moro no {identity.country} e trabalho como {identity.occupation}
+      </li>
+      <li>
+        Alguns dos meus hobbies são: {identity.hobbies[0]} e {
+          identity.hobbies[1]
+        }
+      </li>
+    </ul>
+
+    <p>Minhas skills são:</p>
+    <ul>
+      {skills.map((skill) => <li>{skill}</li>)}
+    </ul>
+
+    {happy && <p>Estou feliz em aprender Astro!</p>}
+
+    {finished && <p>Eu terminei esse tutorial =)</p>}
+
+    {
+      goal === 3 ? (
+        <p>Meu objetivo é finalizar em 3 dias.</p>
+      ) : (
+        <p>Meu objetivo não é finalizar em 3 dias</p>
+      )
+    }
     <p>Me pague um café ☕</p>
 
     <p>Siga nas redes sociais</p>
