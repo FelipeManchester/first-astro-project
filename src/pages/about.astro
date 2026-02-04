@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 const pageTitle = 'Sobre';
 
 const identity = {
@@ -19,6 +21,10 @@ const skills = [
   'NextJS',
   'Tailwind CSS',
 ];
+
+const skillColor = 'crimson';
+const fontWeight = 'bold';
+const textCase = 'uppercase';
 
 const happy = true;
 const finished = false;
@@ -58,7 +64,7 @@ const goal = 3;
 
     <p>Minhas skills são:</p>
     <ul>
-      {skills.map((skill) => <li>{skill}</li>)}
+      {skills.map((skill) => <li class="skill">{skill}</li>)}
     </ul>
 
     {happy && <p>Estou feliz em aprender Astro!</p>}
@@ -85,3 +91,16 @@ const goal = 3;
     </ul>
   </body>
 </html>
+
+<style define:vars={{ skillColor, fontWeight, textCase }}>
+  h1 {
+    color: rgb(83, 2, 83);
+    font-size: 4rem;
+  }
+
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+</style>
