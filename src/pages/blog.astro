@@ -1,44 +1,30 @@
 ---
 import '../styles/global.css';
 
+import BaseLayout from '../layouts/BaseLayout.astro';
 const blogTitle = 'Blog';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{blogTitle}</title>
-  </head>
-  <body>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about/">Sobre</a>
-      <a href="/blog/">Blog</a>
-    </nav>
-    <h1>Front Intro - Blog</h1>
-    <h2>Compartilhando dicas sobre front-end</h2>
+<BaseLayout pageTitle={blogTitle}>
+  <h2>Compartilhando dicas sobre front-end</h2>
 
-    <h1>My Astro Learning Blog</h1>
-    <p>This is where I will post about my journey learning Astro.</p>
-    <ul>
-      <li><a href="/posts/post-1/">Post 1</a></li>
-      <li><a href="/posts/post-2/">Post 2</a></li>
-      <li><a href="/posts/post-3/">Post 3</a></li>
-    </ul>
+  <h1>My Astro Learning Blog</h1>
+  <p>This is where I will post about my journey learning Astro.</p>
+  <ul>
+    <li><a href="/posts/post-1/">Post 1</a></li>
+    <li><a href="/posts/post-2/">Post 2</a></li>
+    <li><a href="/posts/post-3/">Post 3</a></li>
+  </ul>
 
-    <p>Me pague um café ☕</p>
+  <p>Me pague um café ☕</p>
 
-    <p>Siga nas redes sociais</p>
-    <ul>
-      <li>
-        <a href="#instagram">Instagram</a>
-      </li>
-      <li>
-        <a href="#instagram">Facebook</a>
-      </li>
-    </ul>
-  </body>
-</html>
+  <p>Siga nas redes sociais</p>
+  <ul>
+    <li>
+      <a href="#instagram">Instagram</a>
+    </li>
+    <li>
+      <a href="#instagram">Facebook</a>
+    </li>
+  </ul>
+</BaseLayout>

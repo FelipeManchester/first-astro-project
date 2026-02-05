@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
-
-const pageTitle = 'Sobre';
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = 'Front Intro - Sobre';
 
 const identity = {
   firstName: 'Felipe',
@@ -31,66 +31,53 @@ const finished = false;
 const goal = 3;
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-  </head>
-  <body>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about/">Sobre</a>
-      <a href="/blog/">Blog</a>
-    </nav>
-    <h1>Front Intro - Sobre</h1>
-    <h2>Compartilhando dicas sobre front-end</h2>
+<BaseLayout pageTitle={pageTitle}>
+  <h2>Compartilhando dicas sobre front-end</h2>
 
-    <p>Alguns fatos sobre mim:</p>
+  <p>Alguns fatos sobre mim:</p>
 
-    <ul>
-      <li>Meu nome é {identity.firstName}.</li>
-      <li>
-        Eu moro no {identity.country} e trabalho como {identity.occupation}
-      </li>
-      <li>
-        Alguns dos meus hobbies são: {identity.hobbies[0]} e {
-          identity.hobbies[1]
-        }
-      </li>
-    </ul>
+  <ul>
+    <li>Meu nome é {identity.firstName}.</li>
+    <li>
+      Eu moro no {identity.country} e trabalho como {identity.occupation}
+    </li>
+    <li>
+      Alguns dos meus hobbies são: {identity.hobbies[0]} e {identity.hobbies[1]}
+    </li>
+  </ul>
 
-    <p>Minhas skills são:</p>
-    <ul>
-      {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
+  <p>Minhas skills são:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
 
-    {happy && <p>Estou feliz em aprender Astro!</p>}
+  {happy && <p>Estou feliz em aprender Astro!</p>}
 
-    {finished && <p>Eu terminei esse tutorial =)</p>}
+  {finished && <p>Eu terminei esse tutorial =)</p>}
 
-    {
-      goal === 3 ? (
-        <p>Meu objetivo é finalizar em 3 dias.</p>
-      ) : (
-        <p>Meu objetivo não é finalizar em 3 dias</p>
-      )
-    }
-    <p>Me pague um café ☕</p>
+  {
+    goal === 3 ? (
+      <p>Meu objetivo é finalizar em 3 dias.</p>
+    ) : (
+      <p>Meu objetivo não é finalizar em 3 dias</p>
+    )
+  }
+  <p>Me pague um café ☕</p>
 
-    <p>Siga nas redes sociais</p>
-    <ul>
-      <li>
-        <a href="#instagram">Instagram</a>
-      </li>
-      <li>
-        <a href="#instagram">Facebook</a>
-      </li>
-    </ul>
-  </body>
-</html>
+  <p>Siga nas redes sociais</p>
+  <ul>
+    <li>
+      <a href="#instagram">Instagram</a>
+    </li>
+    <li>
+      <a href="#instagram">Facebook</a>
+    </li>
+  </ul>
+</BaseLayout>
+
+<script>
+  import '../scripts/menu.js';
+</script>
 
 <style define:vars={{ skillColor, fontWeight, textCase }}>
   h1 {
