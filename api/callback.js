@@ -22,10 +22,32 @@ export async function GET(request) {
   );
   const tokenData = await tokenResponse.json();
   const access_token = tokenData.access_token;
-  return new Response(JSON.stringify({ access_token }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
+
+  // Return HTML that sends the token back to Decap CMS
+  return new Response(
+    `<!DOCTYPE html>
+<html>
+<head>
+  <title>Decap CMS Callback</title>
+  <script>
+    window.opener.postMessage({
+      type: 'authorization:github:callback',
+      payload: {
+        token: '${access_token}'
+      }
+    }, '*');
+    window.close();
+  </script>
+</head>
+<body>
+  <p>Authentication successful. You can close this window.</p>
+</body>
+</html>`,
+    {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html',
+      },
     },
-  });
+  );
 }
