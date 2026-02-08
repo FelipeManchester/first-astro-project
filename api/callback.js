@@ -1,8 +1,8 @@
 export const prerender = false;
 
-export async function GET(context) {
-  // Pegamos a URL da requisição de forma segura
-  const url = new URL(context.request.url);
+export async function GET({ request }) {
+  // Pegamos a URL diretamente do objeto request que o Astro fornece
+  const url = new URL(request.url);
   const code = url.searchParams.get('code');
 
   const client_id = process.env.GITHUB_CLIENT_ID;
@@ -23,7 +23,6 @@ export async function GET(context) {
 
     const data = await response.json();
 
-    // Se o GitHub retornar erro (ex: código expirado)
     if (data.error) {
       return new Response(`Erro do GitHub: ${data.error_description}`, {
         status: 400,
@@ -35,7 +34,6 @@ export async function GET(context) {
       provider: 'github',
     });
 
-    // O script que fecha o pop-up e loga no CMS
     const html = `
       <script>
         const res = ${content};
@@ -50,8 +48,6 @@ export async function GET(context) {
       headers: { 'Content-Type': 'text/html' },
     });
   } catch (err) {
-    return new Response('Erro interno no callback: ' + err.message, {
-      status: 500,
-    });
+    return new Response('Erro interno: ' + err.message, { status: 500 });
   }
 }
