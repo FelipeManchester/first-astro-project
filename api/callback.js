@@ -42,12 +42,36 @@ export async function GET(context) {
       provider: 'github',
     });
 
-    return new Response(
-      `<script>
-        window.opener.postMessage("authorization:github:success:${content.replace(/"/g, '\\"')}", window.location.origin);
-      </script>`,
-      { headers: { 'Content-Type': 'text/html' } },
-    );
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <body>
+        <script>
+          (function() {
+            const res = ${content};
+            // Usamos a URL do seu site para garantir que a mensagem chegue ao lugar certo
+            const targetOrigin = "https://first-astro-project-zeta.vercel.app";
+            
+            window.opener.postMessage(
+              "authorization:github:success:" + JSON.stringify(res),
+              targetOrigin
+            );
+            
+            setTimeout(() => {
+              window.close();
+            }, 500);
+          })();
+        </script>
+        <p style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+          Autenticado com sucesso! Fechando janela...
+        </p>
+      </body>
+      </html>
+    `;
+
+    return new Response(html, {
+      headers: { 'Content-Type': 'text/html' },
+    });
   } catch (err) {
     return new Response('Erro interno: ' + err.message, { status: 500 });
   }
