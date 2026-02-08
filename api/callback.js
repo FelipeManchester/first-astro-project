@@ -23,35 +23,13 @@ export async function GET(request) {
   const tokenData = await tokenResponse.json();
   const access_token = tokenData.access_token;
 
-  // Return HTML that sends the token back to Decap CMS
-  return new Response(
-    `<!DOCTYPE html>
-<html>
-<head>
-  <title>Decap CMS Callback</title>
-  <script>
-    if (window.opener) {
-      window.opener.postMessage({
-        type: 'authorization:github:callback',
-        payload: {
-          token: '${access_token}'
-        }
-      }, '*');
-    } else {
-      localStorage.setItem('decapCmsToken', '${access_token}');
-    }
-    window.close();
-  </script>
-</head>
-<body>
-  <p>Authentication successful. You can close this window.</p>
-</body>
-</html>`,
-    {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/html',
-      },
+  // Redirect back to admin with token in hash
+  const redirectUrl = `https://first-astro-project-zeta.vercel.app/admin#access_token=${access_token}&token_type=bearer`;
+
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: redirectUrl,
     },
-  );
+  });
 }
