@@ -1,8 +1,10 @@
 export const prerender = false;
 
-export async function GET({ request }) {
-  const url = new URL(request.url);
+export async function GET(context) {
+  // Pegamos a URL da requisição de forma segura
+  const url = new URL(context.request.url);
   const code = url.searchParams.get('code');
+
   const client_id = process.env.GITHUB_CLIENT_ID;
   const client_secret = process.env.GITHUB_CLIENT_SECRET;
 
@@ -20,12 +22,20 @@ export async function GET({ request }) {
     );
 
     const data = await response.json();
+
+    // Se o GitHub retornar erro (ex: código expirado)
+    if (data.error) {
+      return new Response(`Erro do GitHub: ${data.error_description}`, {
+        status: 400,
+      });
+    }
+
     const content = JSON.stringify({
       token: data.access_token,
       provider: 'github',
     });
 
-    // Este script comunica o token de volta para a janela do CMS
+    // O script que fecha o pop-up e loga no CMS
     const html = `
       <script>
         const res = ${content};
@@ -40,6 +50,8 @@ export async function GET({ request }) {
       headers: { 'Content-Type': 'text/html' },
     });
   } catch (err) {
-    return new Response('Erro: ' + err.message, { status: 500 });
+    return new Response('Erro interno no callback: ' + err.message, {
+      status: 500,
+    });
   }
 }
