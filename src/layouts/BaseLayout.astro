@@ -26,5 +26,17 @@ const { pageTitle } = Astro.props;
     <script>
       import '../scripts/menu.js';
     </script>
+
+    <script>
+      if ((window as any).netlifyIdentity) {
+        (window as any).netlifyIdentity.on('init', (user: any) => {
+          if (!user) {
+            (window as any).netlifyIdentity.on('login', () => {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>

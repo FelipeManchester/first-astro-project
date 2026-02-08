@@ -5,6 +5,8 @@ backend:
 media_folder: 'public/images'
 public_folder: '/images'
 
+format: 'frontmatter'
+
 collections:
   - name: 'posts'
     label: 'Posts'
