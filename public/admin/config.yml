@@ -8,13 +8,12 @@ backend:
 media_folder: 'public/images'
 public_folder: '/images'
 
-format: 'frontmatter'
-
 collections:
   - name: 'posts'
     label: 'Posts'
     folder: 'src/pages/posts'
     create: true
+    format: 'frontmatter'
     slug: '{{slug}}'
     fields:
       - { label: 'Título', name: 'title', widget: 'string' }
