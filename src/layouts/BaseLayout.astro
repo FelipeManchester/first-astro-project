@@ -40,5 +40,12 @@ const { pageTitle } = Astro.props;
         });
       }
     </script>
+
+    <script>
+      // Se houver um token na URL (vindo do e-mail), abre o widget automaticamente
+      if (window.location.hash.includes('_token=')) {
+        (window as any).netlifyIdentity.open();
+      }
+    </script>
   </body>
 </html>
