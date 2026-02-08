@@ -49,21 +49,27 @@ export async function GET(context) {
         <script>
           (function() {
             const res = ${content};
-            // Usamos a URL do seu site para garantir que a mensagem chegue ao lugar certo
             const targetOrigin = "https://first-astro-project-zeta.vercel.app";
             
-            window.opener.postMessage(
-              "authorization:github:success:" + JSON.stringify(res),
-              targetOrigin
-            );
-            
-            setTimeout(() => {
-              window.close();
-            }, 500);
+            // 1. Tenta o método padrão (postMessage)
+            if (window.opener) {
+              window.opener.postMessage(
+                "authorization:github:success:" + JSON.stringify(res),
+                "*" 
+              );
+              
+              // 2. Espera um pouco e fecha
+              setTimeout(() => {
+                window.close();
+              }, 1000);
+            } else {
+              // 3. Se o pop-up perdeu a referência da mãe, avisa o usuário
+              document.body.innerHTML = "<p>Autenticado! Você já pode fechar esta janela e atualizar o painel.</p>";
+            }
           })();
         </script>
         <p style="font-family: sans-serif; text-align: center; margin-top: 50px;">
-          Autenticado com sucesso! Fechando janela...
+          Confirmando autenticação...
         </p>
       </body>
       </html>
