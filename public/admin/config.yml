@@ -4,6 +4,7 @@ backend:
   branch: master
   base_url: https://first-astro-project-zeta.vercel.app
   auth_endpoint: api/auth
+  app_id: false
 
 media_folder: 'public/images'
 public_folder: '/images'

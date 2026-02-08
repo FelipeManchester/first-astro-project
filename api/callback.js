@@ -30,12 +30,16 @@ export async function GET(request) {
 <head>
   <title>Decap CMS Callback</title>
   <script>
-    window.opener.postMessage({
-      type: 'authorization:github:callback',
-      payload: {
-        token: '${access_token}'
-      }
-    }, '*');
+    if (window.opener) {
+      window.opener.postMessage({
+        type: 'authorization:github:callback',
+        payload: {
+          token: '${access_token}'
+        }
+      }, '*');
+    } else {
+      localStorage.setItem('decapCmsToken', '${access_token}');
+    }
     window.close();
   </script>
 </head>
