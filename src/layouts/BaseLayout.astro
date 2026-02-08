@@ -14,8 +14,9 @@ const { pageTitle } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-    ></script>
+    <script
+      is:inline
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <nav>
@@ -29,11 +30,11 @@ const { pageTitle } = Astro.props;
       import '../scripts/menu.js';
     </script>
 
-    <script>
-      if ((window as any).netlifyIdentity) {
-        (window as any).netlifyIdentity.on('init', (user: any) => {
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
           if (!user) {
-            (window as any).netlifyIdentity.on('login', () => {
+            window.netlifyIdentity.on('login', () => {
               document.location.href = '/admin/';
             });
           }
@@ -41,10 +42,10 @@ const { pageTitle } = Astro.props;
       }
     </script>
 
-    <script>
+    <script is:inline>
       // Se houver um token na URL (vindo do e-mail), abre o widget automaticamente
       if (window.location.hash.includes('_token=')) {
-        (window as any).netlifyIdentity.open();
+        window.netlifyIdentity.open();
       }
     </script>
   </body>
