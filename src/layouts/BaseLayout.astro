@@ -29,24 +29,5 @@ const { pageTitle } = Astro.props;
     <script>
       import '../scripts/menu.js';
     </script>
-
-    <script is:inline>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
-          if (!user) {
-            window.netlifyIdentity.on('login', () => {
-              document.location.href = '/admin/';
-            });
-          }
-        });
-      }
-    </script>
-
-    <script is:inline>
-      // Se houver um token na URL (vindo do e-mail), abre o widget automaticamente
-      if (window.location.hash.includes('_token=')) {
-        window.netlifyIdentity.open();
-      }
-    </script>
   </body>
 </html>
