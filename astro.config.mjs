@@ -4,6 +4,6 @@ import vercel from '@astrojs/vercel/serverless'; // Importe explicitamente o ser
 
 export default defineConfig({
   integrations: [preact()],
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
 });

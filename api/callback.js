@@ -1,8 +1,16 @@
 export const prerender = false;
 
-export async function GET({ request }) {
-  // Pegamos a URL diretamente do objeto request que o Astro fornece
-  const url = new URL(request.url);
+export async function GET(context) {
+  // Tentativa tripla para pegar a URL: pelo contexto, pela request ou pela URL da janela
+  const requestUrl = context?.request?.url || context?.url || '';
+
+  if (!requestUrl) {
+    return new Response('Erro: URL não encontrada no contexto da Vercel', {
+      status: 500,
+    });
+  }
+
+  const url = new URL(requestUrl);
   const code = url.searchParams.get('code');
 
   const client_id = process.env.GITHUB_CLIENT_ID;
@@ -34,19 +42,12 @@ export async function GET({ request }) {
       provider: 'github',
     });
 
-    const html = `
-      <script>
-        const res = ${content};
-        window.opener.postMessage(
-          "authorization:github:success:" + JSON.stringify(res),
-          window.location.origin
-        );
-      </script>
-    `;
-
-    return new Response(html, {
-      headers: { 'Content-Type': 'text/html' },
-    });
+    return new Response(
+      `<script>
+        window.opener.postMessage("authorization:github:success:${content.replace(/"/g, '\\"')}", window.location.origin);
+      </script>`,
+      { headers: { 'Content-Type': 'text/html' } },
+    );
   } catch (err) {
     return new Response('Erro interno: ' + err.message, { status: 500 });
   }
