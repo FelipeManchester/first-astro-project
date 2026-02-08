@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: FelipeManchester/first-astro-project
   branch: master
+  base_url: https://first-astro-project-zeta.vercel.app
+  auth_endpoint: api/auth
 
 media_folder: 'public/images'
 public_folder: '/images'
