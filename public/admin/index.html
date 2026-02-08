@@ -8,29 +8,5 @@
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
-    <script>
-      // Escutador de eventos manual para debug
-      window.addEventListener(
-        'message',
-        (event) => {
-          console.log('Mensagem recebida no CMS:', event.data);
-        },
-        false,
-      );
-
-      // Inicialização explícita
-      CMS.init({
-        config: {
-          backend: {
-            name: 'github',
-            repo: 'FelipeManchester/first-astro-project',
-            branch: 'master',
-            base_url: 'https://first-astro-project-zeta.vercel.app',
-            auth_endpoint: 'api/auth',
-          },
-          config_url: '/admin/config.yml',
-        },
-      });
-    </script>
   </body>
 </html>
